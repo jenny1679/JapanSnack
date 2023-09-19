@@ -1,0 +1,29 @@
+.card-img-tops img {
+  height: 250px;
+  width: 240px;
+  object-fit: cover;
+}
+
+.box-container img {
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+}
+
+/* .gift-product .btn-plus {
+  background-color: #9a2540;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+} */
+
+.gift-product .btn-plus:hover {
+  background-color: #fcdde2;
+  color: #9a2540;
+  /* border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none; */
+}

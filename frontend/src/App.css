@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* //合併css 918 */
+/* //合併css 918 */
+/* //合併css 918 */
+/* //合併css 918 */
+
+.my-background {
+  background-color: blue;
+  /* 其他样式属性 */
+}
+
+/*  #page {
+  background-color: #777777;  
+   /* height: 600vh;   */
+    /* margin-top: 100px;  
+}*/
+
+
+.animation, .animation_layer {
+	height: 1000px;
+}
+
+.animation {
+  display: block;
+	position: relative;
+	z-index: 10;
+}
+
+.animation_layer {
+	background-position: bottom center;
+	background-size: auto 1038px;
+	background-repeat: repeat-x;
+	width: 100%;
+	position: absolute;
+}
+.animation_layer.parallax {
+	position: fixed;
+}
+
+#bg{
+  /* background-image: url("./images/背景.png"); */
+  /* background: linear-gradient(to bottom, lightpink 0%,rgba(83,203,241,1) 40%,rgba(166,208,228,1) 100%); */
+  /* background: linear-gradient(to bottom, rgb(228, 178, 186) 0%,#ffe1e6 100%); */
+  background: linear-gradient(to bottom, #FEB7C9 0%,#ffeaed 100%);
+}
+
+#Mountain{
+  background-image: url("./images/富士山.png");
+  background-repeat: no-repeat;
+}
+
+#sun{
+  background-image: url("./images/太陽.png");
+}
+
+#rabbit{
+  background-image: url("./images/兔子.png");
+}
+
+#cloud{
+  background-image: url("./images/雲.png");
+}
+
+#closeshot{
+  background-image: url("./images/近景.png");
+}
+
+#logo{
+  background-image: url("./images/logo.png");
+}
+
+#bottom{
+  background-image: url("./images/底部.png");
+}
+#Cherryblossoms
+{
+  background-image: url("./images/櫻花.png");
+}
+
+#block
+{
+  background-image: url("./images/擋住用.png");
+}
+
+
+/* 隐藏导航栏 */
+.hide-navbar-footer .navbar {
+  display: none;
+}
+
+/* 隐藏页脚 */
+.hide-navbar-footer .footer {
+  display: none;
+}
