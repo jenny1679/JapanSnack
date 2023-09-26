@@ -1,54 +1,79 @@
-import './page.css';
-import main1 from './images/最新消息1.jpg';
-import main2 from './images/最新消息2.jpg';
-import main3 from './images/最新消息3.jpg';
-
-//
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
-
+import React from 'react';
+import './Try.css';
+import a from './images/最新消息1.png';
+import b from './images/包裝圖片.png';
+import c from './images/最新消息3.png';
 function page2() {
+  return (
+    <>
+      <div className="container ">
+        {/* <header className="hero os">
+      <hgroup>
+        <h2 className="textTry vintage">VINTAGE</h2>
+        <h2 className="textTry illustration">ILLUSTRATION</h2>
+        <h2 className="textTry nature">NATURE</h2>
+        <div className="flowerTry" />
+        <div className="frame" />
+      </hgroup>
+    </header> */}
+        <section className="os">
+          <div className="inner set-left align-items-center">
+            <br />
+            <div>
+              <h1 className="text-with-shadow fw-bold">最新活動</h1>
+            </div>
+            <br />
+            <div className="section-obj ">
+              <img className="border border-5 " src={a} />
+            </div>
+            <div className="section-content">
+              <h3 className="">
+                即日起和菓子
+                <br />
+                滿百免運活動!!!
+              </h3>
+              <p>
+                {/* Lorem Ipsum is not simply random text. It has roots in a piece of
+            classical Latin literature from 45 BC, making it over 2000 years old.
+            Richard McClintock, a Latin professor at Hampden-Sydney */}
+              </p>
+            </div>
+          </div>
+        </section>
 
-    return (
-
-<div className='background2 border border-dark h-100'>
-<div className='text-center  m-3'><h1 className='fw-bold'>最新消息</h1></div> 
-<div class="pagesContainer border border-dark background2  d-flex  align-items-center">
-    
-	<div class="row m-5 ">
-		<div class="col-md-4 ">
-        <img
-              className="h-100 w-100 border border-5 rounded-3"
-              src={main1}
-              alt=""
-            />
-		</div>
-		<div class="col-md-4 ">
-        <img
-              className="h-100 w-100 border border-5 rounded-3"
-              src={main2}
-              alt=""
-            />
-		</div>
-		<div class="col-md-4 ">
-        <img
-              className="h-100 w-100 border border-5 rounded-3"
-              src={main3}
-              alt=""
-            />
-		</div>
-        <div className='text-center fw-bold m-2'><h3>查看更多</h3></div>
-	</div>
-</div>
-
-
-
-
-</div>
-        
-    );
+        <section className="os">
+          <div className="inner set-right">
+            <div className="section-obj">
+              <img className="border border-5" src={b} />
+            </div>
+            <div className="section-content">
+              <h3 className="">禮盒服務快來製作自己喜歡禮盒組合吧~</h3>
+              <p>
+                {/* Lorem Ipsum is not simply random text. It has roots in a piece of
+            classical Latin literature from 45 BC, making it over 2000 years old.
+            Richard McClintock, a Latin professor at Hampden-Sydney */}
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className="os">
+          <div className="inner set-left">
+            <div className="section-obj">
+              <img src={c} />
+            </div>
+            <div className="section-content">
+              <h3 className="">最新門市開幕喽</h3>
+              <p>
+                {/* Lorem Ipsum is not simply random text. It has roots in a piece of
+            classical Latin literature from 45 BC, making it over 2000 years old.
+            Richard McClintock, a Latin professor at Hampden-Sydney */}
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
 }
-
-
 
 export default page2;

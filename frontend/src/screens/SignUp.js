@@ -106,7 +106,7 @@ export default function SignupScreen() {
         </Form.Group>
 
         <div className="mb-3">
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">送出</Button>
         </div>
         <div className="mb-3">
           已經有帳號了嗎?{' '}

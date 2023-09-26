@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { Container } from 'react-bootstrap';
+
+import './ShippingAddress.css';
 
 export default function ShippingAddress() {
   const navigate = useNavigate();
@@ -60,12 +63,12 @@ export default function ShippingAddress() {
   };
 
   return (
-    <div>
+    <Container className="shippingAddress mb-5 " style={{ marginTop: '15vh' }}>
       <Helmet>
-        <title>收貨地址</title>
+        <title>收貨地址 | 拾月菓</title>
       </Helmet>
       <CheckoutSteps step1 step2></CheckoutSteps>
-      <div className="container small-container">
+      <div className="container ">
         <h1 className="my-3">收貨地址</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="fullName">
@@ -123,12 +126,17 @@ export default function ShippingAddress() {
             ></Form.Control>
           </Form.Group>
           <div className="mb-3">
-            <Button variant="primary" type="submit">
+            <Button
+              className="btn-color"
+              // variant="primary"
+              type="submit"
+              style={{ backgroundColor: '#9a2540' }}
+            >
               下一步
             </Button>
           </div>
         </Form>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -25,6 +25,7 @@ export default function ProfileScreen() {
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
+  const [oldPwd, setOldPwd] = useState(''); // 新增 oldPwd 狀態
   const [pwd, setPwd] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -40,6 +41,7 @@ export default function ProfileScreen() {
         {
           name,
           email,
+          oldPwd, // 傳遞 oldPwd 到後端
           pwd,
         },
         {
@@ -61,11 +63,24 @@ export default function ProfileScreen() {
   };
 
   return (
-    <div className="container small-container">
+    <div className="container small-container  mb-5">
       <Helmet>
-        <title>更改使用者資料</title>
+        <title>會員資料 | 拾月菓</title>
       </Helmet>
-      <h1 className="my-3">更改使用者資料</h1>
+
+      <h1 className="my-3">會員資料</h1>
+      <div>
+        <p>
+          <strong>用戶名稱:</strong> {userInfo.name}
+        </p>
+        <p>
+          <strong>帳號:</strong> {userInfo.email}
+        </p>
+      </div>
+      <hr />
+      <br></br>
+      <h1 className="my-3">變更會員資料</h1>
+
       <form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>用戶名稱</Form.Label>
@@ -75,13 +90,23 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>Email</Form.Label>
+        {/* <Form.Group className="mb-3" controlId="email">
+          <Form.Label>帳號</Form.Label>
           <Form.Control
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+          />
+        </Form.Group> */}
+        <Form.Group className="mb-3" controlId="oldPwd">
+          {' '}
+          {/* 新增 oldPwd 的表單字段 */}
+          <Form.Label>輸入舊密碼</Form.Label>
+          <Form.Control
+            type="password"
+            required
+            onChange={(e) => setOldPwd(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
@@ -92,7 +117,7 @@ export default function ProfileScreen() {
             onChange={(e) => setPwd(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="confirmPassword">
           <Form.Label>再次確認密碼</Form.Label>
           <Form.Control
             type="password"
@@ -100,8 +125,20 @@ export default function ProfileScreen() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
-        <div className="mb-3">
-          <Button type="submit">提交更新</Button>
+        <div className="mb-3 ">
+          <Button
+            type="submit"
+            style={{ background: '#9a2540' }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#b33f5a';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = '#9a2540';
+            }}
+            className="btn-color"
+          >
+            提交更新
+          </Button>
         </div>
       </form>
     </div>

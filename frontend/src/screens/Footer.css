@@ -1,29 +1,38 @@
-footer{
-    background-color: #9A2540;
-    color: white;
-    padding-top: 40px;
+footer {
+  background-color: rgba(255, 255, 255, 0.3);
 
-}
-
-.footer-item ul{
-    /* margin: 10px 40px; */
-    text-align: left;
-}
-.footer-item ul a{
-    text-decoration:none ;
-    color: inherit; /*字的顏色繼承父層*/
-}
-.footer-item ul h4{
-    border-bottom:2px solid #d7879a ;
-    text-align: center;
+  color: rgb(224, 134, 133);
+  padding-top: 25px;
 }
 
-.footer-item li{
-    list-style: none;
+.footer-item ul {
+  text-align: left;
+}
+.icon {
+  display: flex;
+}
+.icons {
+  margin: 20px;
+}
+.footer-item ul a {
+  text-decoration: none;
+  color: inherit;
+}
+.footer-item ul h5 {
+  border-bottom: 2px solid #e08685;
+  text-align: center;
+  color: #e08685;
+  font-weight: 600;
+}
+
+.footer-item li {
+  list-style: none;
+  font-size: 0.8rem;
 }
 
 .conpyright {
-    background-color: #5b1e2c;
-    color: white;
-    text-align: center;
+  background-color: #e08685;
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
 }

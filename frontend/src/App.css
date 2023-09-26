@@ -37,90 +37,98 @@
   }
 }
 
-
 /* //合併css 918 */
 /* //合併css 918 */
 /* //合併css 918 */
 /* //合併css 918 */
 
-.my-background {
-  background-color: blue;
-  /* 其他样式属性 */
+#page1 {
+  /* height: 2500px   ; */
+  /* margin-top: 100px; */
 }
 
 /*  #page {
   background-color: #777777;  
    /* height: 600vh;   */
-    /* margin-top: 100px;  
+/* margin-top: 100px;  
 }*/
 
+/* #page2 {
+  background-color: #777777;  
+   /* height: 600vh;   */
 
-.animation, .animation_layer {
-	height: 1000px;
+.full-height-content {
+  height: 100vh;
+}
+.animation,
+.animation_layer {
+  /* height: 1000px; */
+  height: 100vh;
 }
 
 .animation {
   display: block;
-	position: relative;
-	z-index: 10;
+  position: relative;
+  z-index: 10;
 }
 
 .animation_layer {
-	background-position: bottom center;
-	background-size: auto 1038px;
-	background-repeat: repeat-x;
-	width: 100%;
-	position: absolute;
+  background-position: bottom center;
+  background-size: auto 1038px;
+
+  background-repeat: repeat-x;
+  width: 100%;
+  position: absolute;
 }
 .animation_layer.parallax {
-	position: fixed;
+  position: fixed;
 }
 
-#bg{
-  /* background-image: url("./images/背景.png"); */
-  /* background: linear-gradient(to bottom, lightpink 0%,rgba(83,203,241,1) 40%,rgba(166,208,228,1) 100%); */
-  /* background: linear-gradient(to bottom, rgb(228, 178, 186) 0%,#ffe1e6 100%); */
-  background: linear-gradient(to bottom, #FEB7C9 0%,#ffeaed 100%);
+#bg {
+  background: linear-gradient(to bottom, #ffeaed 0%, #feb7c9 87.37%);
 }
 
-#Mountain{
-  background-image: url("./images/富士山.png");
+#Mountain {
+  background-image: url('./images/富士山.png');
   background-repeat: no-repeat;
 }
 
-#sun{
-  background-image: url("./images/太陽.png");
+#sun {
+  background-image: url('./images/太陽.png');
 }
 
-#rabbit{
-  background-image: url("./images/兔子.png");
+#rabbit {
+  background-image: url('./images/兔子.png');
+}
+#flyrabbit {
+  background-image: url('./images/plane2x.png');
+  background-size: contain;
+}
+.flyrabbit {
+  /* background-color: rgb(214, 136, 136); */
+}
+#cloud {
+  background-image: url('./images/雲.png');
 }
 
-#cloud{
-  background-image: url("./images/雲.png");
+#closeshot {
+  background-image: url('./images/近景.png');
 }
 
-#closeshot{
-  background-image: url("./images/近景.png");
+#logo {
+  background-image: url('./images/logo.png');
 }
 
-#logo{
-  background-image: url("./images/logo.png");
+#bottom {
+  background-image: url('./images/底部.png');
+}
+#Cherryblossoms {
+  background-image: url('./images/櫻花.png');
 }
 
-#bottom{
-  background-image: url("./images/底部.png");
-}
-#Cherryblossoms
-{
-  background-image: url("./images/櫻花.png");
-}
-
-#block
-{
-  background-image: url("./images/擋住用.png");
-}
-
+/* #block {
+  background-image: url('./images/擋住用.png');
+} */
 
 /* 隐藏导航栏 */
 .hide-navbar-footer .navbar {
@@ -130,4 +138,12 @@
 /* 隐藏页脚 */
 .hide-navbar-footer .footer {
   display: none;
+}
+
+.linepay {
+  width: 100px;
+}
+
+.parallax-container {
+  height: auto; /* 設定自定義高度，或者使用 "auto" 以根據內容自動調整高度 */
 }

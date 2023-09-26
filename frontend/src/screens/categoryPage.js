@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../index.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 // 左邊的分類標題 (為了重複使用useState的data，所以採用createContext)
 const CategoryContext = createContext();
@@ -11,7 +12,16 @@ function Category() {
   const { data } = useContext(CategoryContext);
   return (
     <>
-      <div className="CATtitle p-2 position-relative" style={{zIndex:'2'}}>{data}</div>
+      <Helmet>
+        <title>產品分類 | 拾月菓</title>
+        <meta name="description" content="拾月菓" />
+      </Helmet>
+      <div
+        className="CATtitle p-2 position-relative"
+        style={{ zIndex: '2', color: 'rgb(78, 78, 78)' }}
+      >
+        {data}
+      </div>
       <div
         className="CATtitle position-absolute d-none d-lg-block"
         style={{
@@ -20,7 +30,7 @@ function Category() {
           backgroundColor: '#fcdde2',
           top: '8%',
           right: '25%',
-          zIndex:'1'
+          zIndex: '1',
         }}
       >
         &nbsp;
@@ -48,12 +58,11 @@ function CategoryBar() {
   };
   return (
     <>
-      <nav className="nav">
+      <nav className="nav" style={{ marginTop: '12rem' }}>
         <p
           onClick={() => handleItemClick('饅頭')}
           style={textColor('饅頭')}
           className="nav-item fw-bolder fs-4"
-
         >
           饅頭
         </p>
@@ -126,105 +135,96 @@ function ProductCard({ category }) {
   //         });
   // }, [data]);
 
-  // const [selector, setSelector] = useState("所有商品");
-  // // 当选定的类别变化时，获取新的产品数据
-  // useEffect(() => {
-  //     axios.get(`/products/${selector}`)
-  //         .then(response => {
-  //             setProducts(response.data);
-  //         })
-  //         .catch(error => {
-  //             console.error(error);
-  //         });
-  // }, [selector]); // 仅当 data 改变时执行
+  // const [hover, setHover] = useState(false);
 
-  const [hover, setHover] = useState(false);
+  // const mouseEnter = () => {
+  //   setHover(true);
+  // };
 
-  const mouseEnter = () => {
-    setHover(true);
-  };
+  // const mouseLeave = () => {
+  //   setHover(false);
+  // };
 
-  const mouseLeave = () => {
-    setHover(false);
-  };
-
-  const [products, setProducts] = useState([]); // 新增一个状态来存储产品数据
+  const [products, setProducts] = useState([]); // 新增一個狀態來儲存產品數據
 
   useEffect(() => {
-    
     async function fetchProducts() {
       try {
-        //let response是一個變數，用來存放從伺服器獲取的數據 
+        //let response是一個變數，用來存放從伺服器獲取的數據
         let response;
         if (category && category !== '所有商品') {
-          // 发送请求以获取产品数据
-          response = await axios.get(`http://localhost:5000/products/${category}`);
+          // 發送請求以獲取產品數據
+          response = await axios.get(
+            ` http://localhost:5000/products/${category}`
+          );
         } else {
           response = await axios.get(`http://localhost:5000/products`);
         }
-  
-        // 過濾掉禮盒 9 /11新增
+
+        // 過濾掉禮盒 9/11新增
         const filteredProducts = response.data.filter((product) => {
           const excludedIds = [20, 21, 22]; // 需要排除的 _id
           return !excludedIds.includes(product._id);
         });
-  
+
         setProducts(filteredProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     }
-  
+
     fetchProducts();
   }, [category]);
   // map函數的主要目的是將數據陣列中的每個元素映射到React元素
-  // 在 map 内部，多个相鄰JSX 元素需要被包裹在一个父容器内。
+  // 在 map 内部，多個相鄰JSX 元素需要被包裹在一个父容器内。
   return (
     <>
       {products.map((product) => (
         <React.Fragment key={product._id}>
           <div className="col-6 col-lg-3 position-relative">
             <div
-              className="bg-dark position-absolute"
+              className="position-absolute"
               style={{
                 height: '25%',
-                width: '0.2%',
+                width: '0.3%',
                 top: '35%',
                 left: '7%',
                 zIndex: 1,
+                backgroundColor: 'rgb(78, 78, 78)',
               }}
             >
               &nbsp; {/* d-none d-sm-block */}
             </div>
             <div
-              className="card border border-0 position-relative "
-              onMouseEnter={mouseEnter}
-              onMouseLeave={mouseLeave}
-              style={{ marginBottom: '5rem' }}
+              className="card border border-0 position-relative bg-transparent"
+              // onMouseEnter={mouseEnter}
+              // onMouseLeave={mouseLeave}
+              style={{ marginBottom: '7rem' }}
             >
               <img
                 alt="產品圖片"
-                className="card-img-top img-fluid" //mx-auto text-center
+                className="card-img-top img-fluid mx-auto text-center"
                 style={{
                   borderRadius: '50% 50% 2% 2%',
-                  width: '17em', // 设置图片宽度
-                  height: '13em', // 设置图片高度
+                  width: '17em', // 圖片寬度
+                  height: '13em', // 圖片高度
                 }}
                 // src="images/1.jpg"
                 src={product.image}
               />
-              {/* <div className={`overlay ${hover? 'cover' : ''}`} style={{ borderRadius: "50% 50% 2% 2%" }}> */}
+              {/* <div className={`overlay ${hover? 'cover' : ''}`} style={{ borderRadius: "50% 50% 2% 2%" }}>
               <div
                 className={`overlay ${hover}`}
                 style={{ borderRadius: '50% 50% 2% 2%' }}
               >
-                {/* <a className="text">了解更多</a> */}
-              </div>
+                <a className="text">了解更多</a>
+              </div> */}
               <div className="card-body">
-                <h4 className="card-title mb-3">{product.slug}</h4>
-
+                <p className="card-title" style={{ color: 'rgb(78, 78, 78)' }}>
+                  {product.slug}
+                </p>
                 <Link to={`/product/${product._id}`}>
-                  <button className="buy btn btn-secondary w-75 fs-5">
+                  <button className="buy btn-color w-75 fs-5">
                     <span>立即選購 </span>
                   </button>
                 </Link>
@@ -235,8 +235,6 @@ function ProductCard({ category }) {
                 >
                   <span>立即選購 </span>
                 </a> */}
-
-
               </div>
             </div>
           </div>
@@ -273,16 +271,3 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
-
-// 筆記差別
-// useEffect(() => {
-//     fetch('http://localhost:2407/products')
-//         .then(res => res.json())
-//         .then(data => setData(data))
-//         .catch(err => console.log(err));
-// }, [])
-
-// fetch('http://localhost:2407/products')
-//     .then(res => res.json())
-//     .then(data => setData(data))
-//     .catch(err => console.log(err));

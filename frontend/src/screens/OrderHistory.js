@@ -1,4 +1,4 @@
-// 前端 React 代码 (OrderHistoryScreen.js)
+// 前端 (OrderHistory.js)
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 // import { getError } from '../utils';
-import Button from 'react-bootstrap/Button';
+import { Container, Button } from 'react-bootstrap';
 
 function formatDateTime(dateTimeString) {
   const options = {
@@ -69,9 +69,9 @@ export default function OrderHistory() {
   console.log(orders);
 
   return (
-    <div>
+    <Container className="small-container orderhistoryMb">
       <Helmet>
-        <title>訂單查詢</title>
+        <title>訂單查詢 | 拾月菓</title>
       </Helmet>
 
       <h1>訂單查詢</h1>
@@ -109,8 +109,7 @@ export default function OrderHistory() {
                 </td>
                 <td>
                   <Button
-                    variant="color"
-                    style={{ backgroundColor: '#9a2540', color: 'white' }}
+                    className="btn-color"
                     onClick={() => {
                       navigate(`/order/${order.id}`);
                     }}
@@ -123,6 +122,6 @@ export default function OrderHistory() {
           </tbody>
         </table>
       )}
-    </div>
+    </Container>
   );
 }

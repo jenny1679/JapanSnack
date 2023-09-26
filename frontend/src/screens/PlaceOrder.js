@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Card } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
@@ -13,6 +13,8 @@ import { useReducer } from 'react';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
+import Paypal from '../images/paypal.svg';
+import LinePay from '../images/LinePay.png';
 // import { useState } from 'react';
 
 const reducer = (state, action) => {
@@ -48,8 +50,8 @@ export default function PlaceOrder() {
   //晚點改回來
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice;
   // cart.totalPrice = cart.itemsPrice;
-
-  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
+  //滿百免運
+  cart.shippingPrice = cart.itemsPrice >= 100 ? round2(0) : round2(10);
 
   // console.log(userInfo.token);
 
@@ -86,7 +88,7 @@ export default function PlaceOrder() {
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
-  
+
       const orderData = {
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
@@ -94,21 +96,16 @@ export default function PlaceOrder() {
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         totalPrice: cart.totalPrice,
-        // 添加卡片信息到订单数据
         selectedCard: state.selectedCard,
         cardContent: state.cardContent,
       };
-  
-      const { data } = await Axios.post(
-        '/api/orders',
-        orderData,
-        {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
-  
+
+      const { data } = await Axios.post('/api/orders', orderData, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+
       ctxDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('cartItems');
@@ -126,10 +123,10 @@ export default function PlaceOrder() {
   }, [cart, navigate]);
 
   return (
-    <div>
+    <Container className="small-container mb-5">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
-        <title>訂單明細</title>
+        <title>訂單明細 | 拾月菓</title>
       </Helmet>
       <h1 className="my-3"> 訂單明細</h1>
       <Row>
@@ -151,9 +148,16 @@ export default function PlaceOrder() {
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>付款方式</Card.Title>
-              <Card.Text>
+              {/* <Card.Text>
                 <strong>{cart.paymentMethod}</strong>
-              </Card.Text>
+              </Card.Text> */}
+              <img
+                src={cart.paymentMethod === 'PayPal' ? Paypal : LinePay}
+                alt="paypal"
+                className="paypal linepay mb-4"
+              />
+              <br />
+
               <Link to="/payment">更改付款方式</Link>
             </Card.Body>
           </Card>
@@ -172,7 +176,7 @@ export default function PlaceOrder() {
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <Link to={`/product/${item._id}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
                         <span>{item.quantity}</span>
@@ -223,7 +227,9 @@ export default function PlaceOrder() {
                   <div className="d-grid">
                     <Button
                       type="button"
+                      className="btn-color"
                       onClick={placeOrderHandler}
+                      style={{ backgroundColor: '#9a2540' }}
                       disabled={cart.cartItems.length === 0}
                     >
                       送出訂單
@@ -236,6 +242,6 @@ export default function PlaceOrder() {
           </Card>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }

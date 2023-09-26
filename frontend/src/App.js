@@ -5,7 +5,7 @@ import {
   Router,
   Routes,
   Switch,
-  useLocation 
+  useLocation,
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useEffect, useState } from 'react';
@@ -40,14 +40,17 @@ import GiftCard9 from './screens/GiftCard9';
 import GiftBoxDetails from './components/GiftBoxDetails.js';
 import GiftBoxDetails6 from './components/GiftBoxDetails6.js';
 import GiftBoxDetails9 from './components/GiftBoxDetails9.js';
-import Sub from './screens/Sub';
 import FAQ from './screens/FAQ';
 import OrderHistory from './screens/OrderHistory';
 import ProfileScreen from './screens/ProfileScreen';
 import HomeTest from './HomeTest';
 import Layout from './layout/Layout';
-import Footer from './screens/Footer';
-
+import SignTest from './screens/SignTest';
+import Test2 from './screens/Test2';
+import ContactUs from './screens/ContactUs';
+import UserPage from './screens/UserPage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -77,122 +80,62 @@ function App() {
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
         <ToastContainer position="bottom-center" limit={1} />
-        {/* <header className="mb-5">
-          <Navbar bg="" variant="">
-            <Container>
-              <LinkContainer to="/">
-                <Navbar.Brand>首頁</Navbar.Brand>
-              </LinkContainer>
-              <Nav className="me-auto">
-                <Link to="/cart" className="nav-link">
-                  購物車
-                  {cartItemCount > 0 && (
-                    <Badge pill bg="danger">
-                      {cartItemCount}
-                    </Badge>
-                  )}
-                </Link>
-                <Link className="nav-link " to="giftbox">
-                  客製禮盒
-                </Link>
-
-                <Link className="nav-link ms-auto" to="faq">
-                  常見問題
-                </Link>
-                <Link className="nav-link ms-auto" to="category">
-                  最新商品
-                </Link>
-                {userInfo ? (
-                  // <NavDropdown className=' ' title={userInfo.name} id="basic-nav-dropdown">
-                  //   <LinkContainer to="/profile">
-                  //     <NavDropdown.Item>使用者資料</NavDropdown.Item>
-                  //   </LinkContainer>
-                  //   <LinkContainer to="/orderhistory">
-                  //     <NavDropdown.Item>歷史訂單</NavDropdown.Item>
-                  //   </LinkContainer>
-                  //   <NavDropdown.Divider />
-
-                  //   <Link
-                  //     className="dropdown-item"
-                  //     to="#signout"
-                  //     onClick={signoutHandler}
-                  //   >
-                  //     登出
-                  //   </Link>
-                  // </NavDropdown>
-                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>使用者資料</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>歷史訂單</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <Link
-                      className="dropdown-item"
-                      to="#signout"
-                      onClick={signoutHandler}
-                    >
-                      登出
-                    </Link>
-                  </NavDropdown>
-                ) : (
-                  <Link className="nav-link" to="/signin">
-                    登入
-                  </Link>
-                )}
-              </Nav>
-            </Container>
-          </Navbar>
-        </header> */}
         <main>
-          <div className="mt-3">
+          <div className="">
             <Routes>
               <Route path="/" element={<HomeTest />} />
               <Route path="/" element={<Layout />}>
-              <Route path="/category" element={<CategoryPage />} />
-              <Route path="/product/:_id" element={<Product />} />
-              <Route path="/cart" element={<CartScreen />} />
-              <Route path="/signin" element={<SigninScreen />} />
-              <Route path="/signup" element={<SignupScreen />} />
-              <Route path="/placeorder" element={<PlaceOrder />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
+                <Route path="/category" element={<CategoryPage />} />
+                <Route
+                  path="/category/:categoryName"
+                  element={<CategoryPage />}
+                />
+                <Route path="/product/:_id" element={<Product />} />
+                <Route path="/cart" element={<CartScreen />} />
+                {/* <Route path="/signin" element={<SigninScreen />} /> */}
+                {/* <Route path="/signup" element={<SignupScreen />} /> */}
+                <Route path="/placeorder" element={<PlaceOrder />} />
+                <Route path="/order/:id" element={<OrderScreen />} />
 
-              <Route path="/shipping" element={<ShippingAddress />} />
-              <Route path="/payment" element={<PaymentMethod />} />
-              <Route path="/giftbox" element={<CustomizedGiftBox />} />
-              <Route path="/giftcard" element={<GiftCard />} />
-              <Route path="/giftcard6" element={<GiftCard6 />} />
-              <Route path="/giftcard9" element={<GiftCard9 />} />
-              <Route path="/faq" element={<FAQ />} />
-              {/* <Route path="/sub" element={<Sub />} /> */}
+                <Route path="/shipping" element={<ShippingAddress />} />
+                <Route path="/payment" element={<PaymentMethod />} />
+                <Route path="/giftbox" element={<CustomizedGiftBox />} />
+                <Route path="/giftcard" element={<GiftCard />} />
+                <Route path="/giftcard6" element={<GiftCard6 />} />
+                <Route path="/giftcard9" element={<GiftCard9 />} />
+                <Route path="/faq" element={<FAQ />} />
+                {/* <Route path="/sub" element={<Sub />} /> */}
 
-              <Route path="/cardboxdetail" element={<GiftBoxDetails />} />
-              <Route path="/cardboxdetail6" element={<GiftBoxDetails6 />} />
-              <Route path="/cardboxdetail9" element={<GiftBoxDetails9 />} />
-              <Route path="/orderhistory" element={<OrderHistory />} />
-              <Route path="/profile" element={<ProfileScreen />} />
+                <Route path="/cardboxdetail" element={<GiftBoxDetails />} />
+                <Route path="/cardboxdetail6" element={<GiftBoxDetails6 />} />
+                <Route path="/cardboxdetail9" element={<GiftBoxDetails9 />} />
+                <Route path="/orderhistory" element={<OrderHistory />} />
+                <Route path="/profile" element={<ProfileScreen />} />
+                <Route path="/userpage" element={<UserPage />} />
+                <Route path="/signin" element={<SignTest />} />
+                <Route path="/contact" element={<ContactUs />} />
 
-              <Route path="/test" element={<HomeScreen />} />
-              <Route
-                path="/select-content/four"
-                element={<SelectContentFour />}
-              />
-              <Route
-                path="/select-content/six"
-                element={<SelectContentSix />}
-              />
-              <Route
-                path="/select-content/nine"
-                element={<SelectContentNine />}
-              />
+                <Route path="/test" element={<HomeScreen />} />
+                <Route
+                  path="/select-content/four"
+                  element={<SelectContentFour />}
+                />
+                <Route
+                  path="/select-content/six"
+                  element={<SelectContentSix />}
+                />
+                <Route
+                  path="/select-content/nine"
+                  element={<SelectContentNine />}
+                />
+                <Route path="/test2" element={<Test2 />} />
               </Route>
             </Routes>
           </div>
         </main>
         <>
           {/* <Sub /> */}
-          <Footer />
+          {/* <Footer /> */}
           {/* <div className="text-center">All rights reserved</div> */}
         </>
       </div>

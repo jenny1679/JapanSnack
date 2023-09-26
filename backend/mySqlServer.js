@@ -1,6 +1,7 @@
 //使用此檔案開啟後端伺服器
 // require('dotenv').config();
 const dotenv = require('dotenv');
+// const Swal = require('sweetalert2');
 
 dotenv.config();
 const express = require('express');
@@ -12,6 +13,7 @@ const mysqlUsersRouter = require('./routes/mysqlUsers.js');
 const mysqlOrderRouter = require('./routes/orderRoute.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const swal = require('sweetalert');
 
 const nodemailer = require('nodemailer');
 const emailValidator = require('email-validator');
@@ -76,11 +78,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/products', async (req, res) => {
-  const sql = 'SELECT * FROM products';
+  const sql = 'SELECT * FROM products WHERE onSale = 1';
   try {
     const results = await executeQuery(sql);
     console.log('==========丁丁 SQL指令執行OK');
-    console.log(results);
+    // console.log(results);
     return res.json(results);
   } catch (error) {
     console.error('數據庫查詢錯誤:', error);
@@ -90,12 +92,12 @@ app.get('/products', async (req, res) => {
 
 app.get('/products/:category', async (req, res) => {
   const category = req.params.category;
-  const sql = 'SELECT * FROM products where category = ?';
+  const sql = 'SELECT * FROM products where category = ? and onSale = 1';
 
   try {
     const results = await executeQuery(sql, [category]);
     console.log('==========丁丁 SQL指令執行OK');
-    console.log(results);
+    // console.log(results);
     return res.json(results);
   } catch (error) {
     console.error('數據庫查詢錯誤:', error);
@@ -105,12 +107,12 @@ app.get('/products/:category', async (req, res) => {
 
 app.get('/:_id', async (req, res) => {
   const _id = req.params._id;
-  const sql = 'SELECT * FROM products where _id = ?';
+  const sql = 'SELECT * FROM products where _id = ? and onSale = 1';
 
   try {
     const results = await executeQuery(sql, [_id]);
     console.log('==========丁丁 SQL指令執行OK');
-    console.log(results);
+    // console.log(results);
     return res.json(results);
   } catch (error) {
     console.error('數據庫查詢錯誤:', error);
@@ -164,23 +166,24 @@ app.post('/subscribe', async (req, res) => {
     from: (process.env.MAIL_USER = 'eliotworkmail@gmail.com'),
     to: email,
     subject: '拾月菓-訂閱確認',
-    text: `親愛的拾月菓（Shiyue Guo）的忠實顧客，
-
-      感謝您訂閱拾月菓的最新消息！我們非常高興您加入我們的大家庭。
-      
-      您將第一個獲得以下好處：
-      
-      獨家折扣和促銷信息：您將獲得我們最新的促銷信息，包括折扣和特別優惠。
-      
-      新產品發布通知：無需等待，我們將直接通知您我們的新產品發布。
-      
-      活動邀請：不定期，我們會為我們的忠實顧客舉辦特別活動，您將被邀請參加。
-      
-      再次感謝您對拾月菓的支持。如果您有任何問題或建議，請隨時聯繫我們。
-      
-      祝您擁有美味的日式果子時光！
-      
-      拾月菓團隊`,
+    html: `
+    <![CDATA[
+    ]]>
+    <div className="container">
+      <h1>拾月菓-訂閱確認</h1>
+      <p>親愛的拾月菓（ShiyueGuo）的忠實顧客，</p>
+      <p>感謝您訂閱拾月菓的最新消息！我們非常高興您加入我們的大家庭。</p>
+      <p>您將第一個獲得以下好處：</p>
+      <ul>
+        <li>獨家折扣和促銷信息：您將獲得我們最新的促銷信息，包括折扣和特別優惠。</li>
+        <li>新產品發布通知：無需等待，我們將直接通知您我們的新產品發布。</li>
+        <li>活動邀請：不定期，我們會為我們的忠實顧客舉辦特別活動，您將被邀請參加。</li>
+      </ul>
+      <p>再次感謝您對拾月菓的支持。如果您有任何問題或建議，請隨時聯繫我們。</p>
+      <p>祝您擁有美味的日式果子時光！</p>
+      <p>拾月菓團隊</p>
+    </div>
+  `,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -189,16 +192,61 @@ app.post('/subscribe', async (req, res) => {
       res.status(500).send('訂閱失敗');
     } else {
       console.log('Email sent: ' + info.response);
-      res
-        .status(200)
-        .send(
-          '<script>alert("訂閱成功"); window.location.href = "/";</script>'
-        );
+      res.status(200).send(
+        // 使用swal彈出視窗 顯示訂閱成功
+
+        '<script>alert("訂閱成功"); window.location.href = "/";</script>'
+      );
 
       // 之後把網頁轉回首頁
     }
   });
 });
+
+//聯絡我們//
+
+app.post('/send-email', (req, res) => {
+  const { name, email, message } = req.body;
+
+  // 使用 nodemailer 發送郵件
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: (process.env.MAIL_USER = 'eliotworkmail@gmail.com'),
+      pass: (process.env.MAIL_PASS = 'myza ffmq yyid xlpq'),
+    },
+  });
+
+  const mailOptions = {
+    from: (process.env.MAIL_USER = 'eliotworkmail@gmail.com'),
+    to: email,
+    subject: '拾月菓-已收到您的來信',
+    html: `
+      <h1>親愛的拾月菓（ShiyueGuo）的忠實顧客 ${name} 您好，</h1>
+      <p>感謝您發送訊息！我們已經收到您的來信。</p>
+      <p>我們將盡快回覆您。</p>
+      <p>拾月菓團隊</p>
+      <p>您的訊息內容如下：</p>
+      <p>訊息: ${message}</p>
+
+      <p>如果您還有任何問題或建議，請隨時聯繫我們。</p>
+      <p>祝您擁有美味的日式果子時光！</p>
+      <p>拾月菓團隊</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('郵件發送失敗');
+    } else {
+      console.log('郵件已發送: ' + info.response);
+      res.status(200).send('郵件已成功發送');
+    }
+  });
+});
+
+//聯絡我們
 
 app.use(express.static('public'));
 //訂閱功能

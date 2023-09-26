@@ -5,20 +5,23 @@ import fourBoxImage from '../images/four_boxBodyIn_0.png';
 import sixBoxImage from '../images/six_boxBodyIn_0.png';
 import nineBoxImage from '../images/nine_boxBodyIn_0.png';
 import { Store } from '../Store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MyProgress from '../components/MyProgress';
 import 'animate.css';
+import { Helmet } from 'react-helmet-async';
 
 export default function CustomizedGiftBox() {
   const { state, dispatch } = useContext(Store);
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedBox, setSelectedBox] = useState('null');
-  const [showNextButton, setShowNextButton] = useState(false);
+  const navigate = useNavigate();
+
   const handleBoxChange = (option) => {
     setSelectedBox(option);
-    setShowNextButton(true);
-    // console.log(selectedBox);
-    // 點選禮盒後 添加 動畫
+  };
+
+  const checkoutHandler = () => {
+    navigate(`/select-content/${selectedBox}`);
   };
 
   useEffect(() => {
@@ -26,28 +29,37 @@ export default function CustomizedGiftBox() {
   }, [dispatch, selectedBox]);
 
   return (
-    <Container>
+    <Container
+      className="giftmarin p-3 shadow-lg "
+      style={{
+        backgroundColor: '#ffffffbc',
+        margin: '15vh auto 10vh auto',
+      }}
+    >
+      <Helmet>
+        <title>客製禮盒 | 拾月菓</title>
+        <meta name="description" content="拾月菓" />
+      </Helmet>
       <Row>
         <Col md={12}>
-          <MyProgress currentStep={currentStep} />{' '}
+          <MyProgress currentStep={currentStep} />
           {/* 將 currentStep 作為屬性傳遞 */}
         </Col>
       </Row>
       <Row>
         <Col className="mt-3" style={{ minHeight: '44px' }}>
-          {showNextButton && (
-            <div className="d-flex justify-content-end align-items-center ">
-              <Link to={`/select-content/${selectedBox}`}>
-                <Button
-                  variant="color"
-                  style={{ backgroundColor: '#9a2540', color: 'white' }}
-                  className="btn-color"
-                >
-                  下一步
-                </Button>
-              </Link>
-            </div>
-          )}
+          <div className="d-flex justify-content-end align-items-center ">
+            <Button
+              className={`btn-color ${
+                selectedBox === 'null' ? 'disable-pointer' : ''
+              }`}
+              onClick={checkoutHandler}
+              style={{ backgroundColor: '#9a2540' }}
+              disabled={selectedBox === 'null'}
+            >
+              下一步
+            </Button>
+          </div>
         </Col>
       </Row>
       <Row>

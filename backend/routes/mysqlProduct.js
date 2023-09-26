@@ -14,7 +14,8 @@ const db = mysql.createPool({
 productRouter.get('/', async (req, res) => {
   try {
     const connection = await db.getConnection();
-    const [products] = await connection.query('SELECT * FROM products');
+    const [products] = await connection.query('SELECT * FROM products WHERE onSale = 1');
+    // const [products] = await connection.query('SELECT * FROM products');
     connection.release();
     res.send(products);
   } catch (error) {
@@ -27,7 +28,7 @@ productRouter.get('/slug/:slug', async (req, res) => {
   try {
     const connection = await db.getConnection();
     const [product] = await connection.query(
-      'SELECT * FROM products WHERE slug = ?',
+      'SELECT * FROM products WHERE slug = ? and onSale = 1',
       [req.params.slug]
     );
     connection.release();
@@ -47,7 +48,7 @@ productRouter.get('/:id', async (req, res) => {
   try {
     const connection = await db.getConnection();
     const [product] = await connection.query(
-      'SELECT * FROM products WHERE _id = ?',
+      'SELECT * FROM products WHERE _id = ? and onSale = 1',
       [req.params.id]
     );
     connection.release();

@@ -5,6 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MyProgress from '../components/MyProgress';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import swal from 'sweetalert';
+import greenCardFront from '../images/card/green_card_front.png';
+import offWhiteColorFront from '../images/card/offwhite_card_front.png';
+import pinkCardFront from '../images/card/pink_card_front.png';
+import greenCardBack from '../images/card/green_card_back.jpg';
+import offWhiteColorBack from '../images/card/offwhite_card_back.jpg';
+import pinkCardBack from '../images/card/pink_card_back.jpg';
 
 export default function GiftBoxDetails() {
   const navigate = useNavigate();
@@ -122,7 +129,12 @@ export default function GiftBoxDetails() {
       type: 'UPDATE_CART_COUNT',
       payload: updatedCartCount,
     });
-    alert('成功加入購物車!');
+    swal({
+      title: '成功加入購物車!',
+      icon: 'success',
+      button: '確認',
+    });
+    // alert('成功加入購物車!');
     navigate('/cart');
   };
 
@@ -148,28 +160,46 @@ export default function GiftBoxDetails() {
       if (response.status === 200) {
         navigate('/cart');
       } else {
-        alert('卡片資訊儲存失敗');
+        swal({
+          title: '卡片資訊儲存失敗',
+          icon: 'error',
+          button: '確認',
+        });
+        // alert('卡片資訊儲存失敗');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('卡片資訊儲存失敗');
+      swal({
+        title: '卡片資訊儲存失敗',
+        icon: 'error',
+        button: '確認',
+      });
+      // alert('卡片資訊儲存失敗');
     }
   };
   return (
-    <Container>
+    <Container
+      className="pt-3 shadow-lg"
+      style={{
+        backgroundColor: '#ffffffbc',
+        margin: '15vh auto 10vh auto',
+      }}
+    >
       <Row>
         <Col md={12}>
           <MyProgress currentStep={currentStep} />
         </Col>
       </Row>
 
-      <h3 className="fs-2 fw-bolder text-center mb-5 mt-3">確認禮盒內容</h3>
+      <h3 className="fs-2 fw-bolder text-center mb-5 mt-5">確認禮盒內容</h3>
       {
         <div className="selected-four-box mx-auto">
           {/* 渲染選定的商品信息 */}
-          {selectedProducts.map((selectedProduct) => (
+          {selectedProducts.map((selectedProduct, index) => (
             <img
-              key={selectedProduct._id}
+              // key={index}
+              // key={selectedProduct._id}
+              key={`${selectedProduct._id}-${index}`} // 使用組合的 key
               src={selectedProduct.product_package}
               className="selected-product-image"
               alt={`selected product ${selectedProduct._id}`}
@@ -189,9 +219,10 @@ export default function GiftBoxDetails() {
           style={{ width: '40%', border: '0.01rem dashed #9A2540' }}
         ></div>
         {/* 渲染選定的商品信息 */}
-        {productList.map((selectedProduct) => (
+        {productList.map((selectedProduct, index) => (
           <div
-            key={selectedProduct._id}
+            // key={selectedProduct._id}
+            key={`${selectedProduct._id}-${index}`} // 使用組合的 key
             className="product-details d-flex justify-content-center"
           >
             <div
@@ -204,7 +235,7 @@ export default function GiftBoxDetails() {
                 style={{ width: '5rem', height: '5rem' }}
                 alt={`selected product ${selectedProduct._id}`}
               />
-              <div className="fs-5 m-3">{selectedProduct.name}</div>
+              <div className="fs-5 m-3">{selectedProduct.slug}</div>
               <div
                 className="fs-5 pe-3"
                 style={{ marginLeft: 'auto', color: '#9A2540' }}
@@ -221,34 +252,58 @@ export default function GiftBoxDetails() {
       <div>
         {/* 顯示用戶選擇的卡片樣式與內容 */}
         <div
-          className="text-center mt-5 fs-4 fw-bolder"
+          className="text-center mt-5 mb-3 fs-4 fw-bolder"
           style={{ color: '#9A2540' }}
         >
           選擇的卡片樣式
         </div>
-        <p>{selectedCard}</p>
-
-        <div
-          className="text-center mt-5 fs-4 fw-bolder"
-          style={{ color: '#9A2540' }}
-        >
-          卡片內容
+        {/* <p>{selectedCard}</p> */}
+        <div className=" d-flex justify-content-center">
+          <Col md={6} className="d-flex justify-content-center">
+            <div className="card-back-img mb-3">
+              {/* 所選卡片對應的圖片 */}
+              {selectedCard === '綠色' ? (
+                <img
+                  src={greenCardBack}
+                  alt={selectedCard}
+                  width={334}
+                  height={250}
+                />
+              ) : selectedCard === '米白' ? (
+                <img
+                  src={offWhiteColorBack}
+                  alt={selectedCard}
+                  width={334}
+                  height={250}
+                />
+              ) : selectedCard === '粉色' ? (
+                <img
+                  src={pinkCardBack}
+                  alt={selectedCard}
+                  width={334}
+                  height={250}
+                />
+              ) : null}
+              <p
+                className="card-back-text"
+                dangerouslySetInnerHTML={{ __html: cardContent }}
+              ></p>
+            </div>
+            {/* 顯示用戶選擇的卡片樣式與內容 */}
+          </Col>
         </div>
-        <p>{cardContent}</p>
       </div>
 
       {/* 添加禮盒到購物車的按鈕 */}
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-center">
         <Button
-          variant="color"
-          style={{ backgroundColor: '#9a2540', color: 'white' }}
-          className="btn-color"
+          className="btn-color  mb-3"
           onClick={() => {
-            handleSubmit(); // 调用 handleSubmit 函数
+            // handleSubmit(); // 调用 handleSubmit 函数
             addToCart(20); // 调用 addToCart 函数
           }}
         >
-          加到購物車
+          加入購物車
         </Button>
       </div>
     </Container>

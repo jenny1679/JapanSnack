@@ -8,6 +8,8 @@ import transparent from '../images/transparent.png';
 import { Store } from '../Store';
 import MyProgress from '../components/MyProgress';
 import 'animate.css';
+import swal from 'sweetalert';
+import { Helmet } from 'react-helmet-async';
 
 export default function SelectContentNine() {
   const { state, dispatch } = useContext(Store);
@@ -37,9 +39,23 @@ export default function SelectContentNine() {
 
   // 點擊產品時的處理函數
   const handleProductSelect = (product) => {
+    //如果選擇商品已滿 顯示提式
+    if (state.selectedProducts9.length === 8) {
+      swal({
+        title: '已選滿九個商品！',
+        icon: 'warning',
+        button: '確定',
+      });
+    }
+
     if (state.selectedProducts9.length >= 9) {
       // 已選擇的產品數量達到9個，顯示錯誤提示
-      alert('數量已達到上限！');
+      swal({
+        title: '數量已達上限！',
+        icon: 'warning',
+        button: '確定',
+      });
+      // alert('數量已達到上限！');
       return;
     }
 
@@ -65,9 +81,32 @@ export default function SelectContentNine() {
     setSelectedCategory(category);
   };
 
-  const handleNextButtonClick = () => {
-    const userResponse = window.confirm('是否需要加入禮盒卡片？');
+  const handleNextButtonClick = async () => {
+    //如果商品尚未選滿9個，跳出警告
 
+    if (state.selectedProducts9.length < 9) {
+      swal({
+        title: '請選滿九個商品！',
+        icon: 'warning',
+        button: '確定',
+      });
+      return;
+    }
+
+    // const userResponse = window.confirm('是否需要加入禮盒卡片？');
+    // const userResponse = swal({
+    //   title: "是否需要加入禮盒卡片？",
+    //   icon: "warning",
+    //   // buttons: true,
+    //   dangerMode: true,
+    // });
+
+    const userResponse = await swal({
+      title: '是否需要加入禮盒卡片？',
+      icon: 'warning',
+      buttons: ['不需要', '需要'],
+      dangerMode: true,
+    });
     if (userResponse) {
       navigate(`/giftcard9`);
     } else {
@@ -91,7 +130,17 @@ export default function SelectContentNine() {
   }, [state.selectedProducts, dispatch]);
 
   return (
-    <Container>
+    <Container
+      className="pt-3 shadow-lg"
+      style={{
+        backgroundColor: '#ffffffbc',
+        margin: '15vh auto 10vh auto',
+      }}
+    >
+      <Helmet>
+        <title>客製禮盒產品內容 | 拾月菓</title>
+        <meta name="description" content="拾月菓" />
+      </Helmet>
       <Row>
         <Col md={12}>
           <MyProgress currentStep={currentStep} />
@@ -101,23 +150,12 @@ export default function SelectContentNine() {
         <Col className="d-flex justify-content-between align-items-center">
           <div className="next-button">
             <Link to={`/giftbox`}>
-              <Button
-                variant="color"
-                style={{ backgroundColor: '#9a2540', color: 'white' }}
-                className="btn-color"
-              >
-                上一步
-              </Button>
+              <Button className="btn-color">上一步</Button>
             </Link>
           </div>
           <div className="next-button">
             {isNextButtonVisible && (
-              <Button
-                variant="color"
-                style={{ backgroundColor: '#9a2540', color: 'white' }}
-                className="btn-color"
-                onClick={handleNextButtonClick}
-              >
+              <Button className="btn-color" onClick={handleNextButtonClick}>
                 下一步
               </Button>
             )}
@@ -148,10 +186,20 @@ export default function SelectContentNine() {
           </div>
         </Col>
       </Row>
-      {/* 要加Row、Col嗎  | 改Button */}
-      {/* <Row> */}
-      {/* <Col></Col> */}
+
       <div className="category-buttons m-3 text-center">
+        {/* 隨機加入產品 */}
+
+        <button
+          className="btn-color me-2"
+          onClick={() =>
+            handleProductSelect(
+              products[Math.floor(Math.random() * (products.length - 3))]
+            )
+          }
+        >
+          隨機商品
+        </button>
         <button
           className={
             selectedCategory === 'all' ? 'btn-color me-2' : 'btn-cat-color me-2'
@@ -211,7 +259,6 @@ export default function SelectContentNine() {
           水饅頭
         </button>
       </div>
-      {/* </Row> */}
       <Row>
         {products
           .filter((product) =>

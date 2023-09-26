@@ -1,12 +1,17 @@
-import { Parallax, ParallaxLayer } from '@react-spring/parallax'
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+
 import Page from './page';
 import Page2 from './page2';
 import Page3 from './page3';
 import Page4 from './page4';
-import './nav.css'
-import './start.css'; 
-import './App.css';  
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Try from './Try';
+import './nav.css';
+import Test2 from './screens/Test2';
+import { Helmet } from 'react-helmet-async';
+
+import './start.css';
+import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
@@ -19,14 +24,12 @@ import { useContext } from 'react';
 import { Store } from './Store';
 
 // import Transition from './components/Transition';
-
-
+import main1 from './images/專題2/品牌2.png';
 
 function HomeTest() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo, giftBoxQuantity } = state;
   const [cartItemCount, setCartItemCount] = useState(0);
-  
 
   useEffect(() => {
     // 計算購物車數量
@@ -47,109 +50,108 @@ function HomeTest() {
     localStorage.removeItem('paymentMethod');
     window.location.href = '/signin';
   };
- 
 
-  
   return (
-
     // pages 等於總和頁數
-    //offest 
-   
-    <div className="App my-background"  >
+    //offest
 
-      <Parallax pages={4} style={{ top: '0', left: '0' }} class="animation">
-
-      <ParallaxLayer offset={0} speed={0}>
-          <div class="animation_layer parallax" id="block"></div>
-        </ParallaxLayer>  
-{/* --------------------------------------------------------------- */}
-        <ParallaxLayer offset={0} speed={0.25}>
-          <div class="animation_layer parallax" id="bg"></div>
-          <div className="vertical-text text-wrap fs-2 fw-bold h-100 ">
-              <div>每</div>
-              <div>一</div>
-              <div>口</div>
-              <div>，</div>
-              <div>都</div>
-              <div>是</div>
-              <div>和</div>
-              <div>菓</div>
-              <div>子</div>
-              <div>的</div>
-              <div>味</div>
-              <div>道</div>
-            </div>
-
-            <div className="vertical-text2 text-wrap fs-2 fw-bold ">
-              <div>伝</div>
-              <div>統</div>
-              <div>說</div>
-              <div>の</div>
-              <div>、</div>
-              <div>新</div>
-              <div>し</div>
-              <div>い</div>
-              <div>出</div>
-              <div>会</div>
-              <div>い</div>
-            </div>
-        </ParallaxLayer>   
-
-        
-        <ParallaxLayer offset={0} speed={0.55}>
-          <div class="animation_layer parallax" id="cloud"></div>
-        </ParallaxLayer>  
-
-       {/* --------------------------------------------------------------- */}
-       
-        <ParallaxLayer offset={0} speed={0.5}>
-          <div class="animation_layer parallax" id="sun"></div>
+    <div className="App my-background">
+      <Helmet>
+        <title>首頁 | 拾月菓</title>
+        <meta name="description" content="拾月菓" />
+      </Helmet>
+      <Parallax pages={6} style={{ top: '0', left: '0' }} className="animation">
+        <ParallaxLayer offset={0} speed={0}>
+          <div className="animation_layer parallax" id="block"></div>
         </ParallaxLayer>
-       {/* --------------------------------------------------------------- */}
-  
-        <ParallaxLayer offset={0} speed={0.6}>
-          <div class="animation_layer parallax" id="logo"></div>
-        </ParallaxLayer>  
+        {/* --------------------------------------------------------------- */}
+        <ParallaxLayer offset={0} speed={0}>
+          <div className="animation_layer parallax" id="bg"></div>
+          <div className="vertical-text text-wrap fs-2 fw-bold h-100 ">
+            <div>每</div>
+            <div>一</div>
+            <div>口</div>
+            <div>，</div>
+            <div>都</div>
+            <div>是</div>
+            <div>和</div>
+            <div>菓</div>
+            <div>子</div>
+            <div>的</div>
+            <div>味</div>
+            <div>道</div>
+          </div>
 
-       {/* --------------------------------------------------------------- */}
+          <div className="vertical-text2 text-wrap fs-4 fw-bold ">
+            <div>伝</div>
+            <div>統</div>
+            <div>說</div>
+            <div>の</div>
+            <div>、</div>
+            <div>新</div>
+            <div>し</div>
+            <div>い</div>
+            <div>出</div>
+            <div>会</div>
+            <div>い</div>
+          </div>
+        </ParallaxLayer>
+        {/* --------------------------------------------------------------- */}
+        <ParallaxLayer offset={0} speed={0.7}>
+          <div className="animation_layer parallax" id="cloud"></div>
+        </ParallaxLayer>
+
+        {/* 雲 */}
+        {/* --------------------------------------------------------------- */}
+
+        <ParallaxLayer offset={0} speed={0.7}>
+          <div className="animation_layer parallax" id="sun"></div>
+        </ParallaxLayer>
+        {/* --------------------------------------------------------------- */}
+
+        <ParallaxLayer offset={0} speed={0.6}>
+          <div className="animation_layer parallax" id="logo"></div>
+        </ParallaxLayer>
+
+        {/* --------------------------------------------------------------- */}
 
         <ParallaxLayer offset={0} speed={0.68}>
-          <div class="animation_layer parallax" id="rabbit"></div>
-        </ParallaxLayer>  
-       {/* --------------------------------------------------------------- */}
+          <div className="animation_layer parallax" id="rabbit"></div>
+          {/* 兔子 */}
+        </ParallaxLayer>
+        {/* --------------------------------------------------------------- */}
 
-        
-        <ParallaxLayer offset={0} speed={0.25}>
- 
-        </ParallaxLayer>   
+        <ParallaxLayer offset={0} speed={0.25}></ParallaxLayer>
         {/* <ParallaxLayer offset={0} speed={-0.1}>
-          <div class="animation_layer parallax" id="closeshot"></div>
+          <div className="animation_layer parallax" id="closeshot"></div>
         </ParallaxLayer>   */}
 
         {/* --------------------------------------------------------------- */}
 
-        <ParallaxLayer offset={0} speed={-0.8}>
-          <div class="animation_layer parallax" id="Torii"></div>
-          
-        </ParallaxLayer>  
+        {/* <ParallaxLayer offset={0} speed={-0.8}>
+          <div className="animation_layer parallax" id="Torii"></div>
+        </ParallaxLayer> */}
+        {/* 鳥居 */}
+        {/* --------------------------------------------------------------- */}
+
+        <ParallaxLayer offset={0} speed={-0.2}>
+          <div className="animation_layer parallax" id="Cherryblossoms"></div>
+        </ParallaxLayer>
+        {/* 櫻花 */}
 
         {/* --------------------------------------------------------------- */}
 
-        <ParallaxLayer offset={0} speed={0}>
-          <div class="animation_layer parallax" id="Cherryblossoms"></div>
-          
-        </ParallaxLayer>  
-         {/* --------------------------------------------------------------- */}
-
-          <ParallaxLayer offset={0} speed={0.25}>
-          <div class="animation_layer parallax" id="Mountain"></div>
-         
-        </ParallaxLayer>  
-
-         {/* --------------------------------------------------------------- */}
+        <ParallaxLayer offset={0} speed={-0.3}>
+          <div
+            className="animation_layer parallax shake-vertical"
+            id="Mountain"
+          ></div>
+        </ParallaxLayer>
+        {/* 富士山 */}
+        {/* --------------------------------------------------------------- */}
         {/* 森林與門 */}
-         <ParallaxLayer offset={0} speed={0.20}>
-          <div class="animation_layer parallax" id="bottom"></div>
+        <ParallaxLayer offset={0} speed={0}>
+          <div className="animation_layer parallax" id="bottom"></div>
 
           <div className="ldoor ldoorleave">
             <img
@@ -159,140 +161,56 @@ function HomeTest() {
             />
           </div>
           <div className="rdoor ldoorleave">
-            <img className="h-100 " src={require('./images/rightDoor.png')} alt="" />
+            <img
+              className="h-100 "
+              src={require('./images/rightDoor.png')}
+              alt=""
+            />
           </div>
-          </ParallaxLayer>
+        </ParallaxLayer>
 
-       
+        <ParallaxLayer offset={1}>
+          <Page />
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={1}  >
-          <Page/>
-          </ParallaxLayer>
+        <ParallaxLayer offset={1} speed={0.2}>
+          <div>
+            <h1 className=" text-center fw-bold animate__animated animate__bounce  ">
+              關於我們的故事
+            </h1>
 
-          <ParallaxLayer offset={2}  >
-          <Page2/>
-          </ParallaxLayer>
-         
+            <h2 className="text-center fw-bold ">「拾月菓」</h2>
+            <br></br>
+            <h4 className=" animate__fadeInDown  mx-5 fw-bold lh-3 ">
+              日式菓子專賣店創辦於2023年資策會前端班，
+              「十月」是我們學習了半年要結訓發表的月份，
+              我們的團隊熱愛日本文化，於是決定創建日式點心為主題的網站，
+              傳達品牌承襲日本文化、嚴選天然頂級原料的理念秉持著文化精髓中「不懈不怠、嚴謹專注」的職人精神。
+            </h4>
+          </div>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={3}  >
-          <Page3/>
-          </ParallaxLayer>
+        <ParallaxLayer offset={2.2} speed={0.2}>
+          <div className="background2  h-50 "></div>
+        </ParallaxLayer>
+        <ParallaxLayer offset={2}>
+          <Page2 />
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={4}  >
-          <Page4/>
-          </ParallaxLayer>
-         
-         
-        
+        <ParallaxLayer offset={3.1}>
+          <Page3 />
+        </ParallaxLayer>
 
-      
-          {/* speed={-1} */}
+        <ParallaxLayer offset={4.3}>
+          <Page4 />
+        </ParallaxLayer>
 
-      <ParallaxLayer  >
-      {/* <div className='nav  justify-content-center '>特價活動</div> */}
-
-
-      {/* <nav class="nav navbar navbar-expand-lg navbar-light  fixed-top ">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light"  href="#">品牌故事</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light" href="#">所有商品</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light" href="#">客製化禮物盒</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light" href="#">常見問題</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light" href="#">登入</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold text-light" href="#">購物車</a>
-        </li>
-       
-      </ul>
+        <ParallaxLayer>
+          <Test2 />
+        </ParallaxLayer>
+      </Parallax>
     </div>
-  </div>
-</nav> */}
-
-
-
-
-   
-          <Navbar  className='fixed-top  animate__animated animate__fadeIn animate__delay-3s ' bg="none" variant="">
-            <Container>
-              <LinkContainer to="/">
-                <Navbar.Brand>首頁</Navbar.Brand>
-              </LinkContainer>
-              <Nav className="me-auto">
-                <Link to="/cart" className="nav-link">
-                  購物車
-                  {cartItemCount > 0 && (
-                    <Badge pill bg="danger">
-                      {cartItemCount}
-                    </Badge>
-                  )}
-                </Link>
-                <Link className="nav-link " to="giftbox">
-                  客製禮盒
-                </Link>
-
-                <Link className="nav-link ms-auto" to="faq">
-                  常見問題
-                </Link>
-                <Link className="nav-link ms-auto" to="category">
-                  最新商品
-                </Link>
-                {userInfo ? (
-                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>使用者資料</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>歷史訂單</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <Link
-                      className="dropdown-item"
-                      to="#signout"
-                      onClick={signoutHandler}
-                    >
-                      登出
-                    </Link>
-                  </NavDropdown>
-                ) : (
-                  <Link className="nav-link" to="/signin">
-                    登入
-                  </Link>
-                )}
-              </Nav>
-            </Container>
-          </Navbar>
-        
-      
-        </ParallaxLayer> 
-        </Parallax>
-       
-
-      
-
-    </div>
-  
-
-
   );
-
-  
 }
-
 
 export default HomeTest;

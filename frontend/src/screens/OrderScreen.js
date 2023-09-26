@@ -14,6 +14,9 @@ import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { Container } from 'react-bootstrap';
+import Paypal from '../images/paypal.svg';
+import LinePay from '../images/LinePay.png';
 
 const clientId =
   'AYngKbWm4TYcnQURW3lDH60P0myyeMHowAHYDEz_oJ87IdUW71el5uPOt9FwbFTp5mPotEWGTOx0QxGm';
@@ -210,14 +213,15 @@ export default function OrderScreen() {
     successPay,
     order.id,
   ]);
+
   return loading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <Container className="small-container mb-5">
       <Helmet>
-        <title>訂單 {orderId}</title>
+        <title>訂單 | 拾月菓 {orderId}</title>
       </Helmet>
       <PayPalScriptProvider options={{ 'client-id': clientId }}>
         <h1 className="my-3">訂單編號 {orderId}</h1>
@@ -225,7 +229,7 @@ export default function OrderScreen() {
           <Col md={8}>
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title>運送資訊</Card.Title>
+                <Card.Title className="border-bottom">運送資訊</Card.Title>
 
                 <Card.Text>
                   {order.shipping_address && (
@@ -251,9 +255,16 @@ export default function OrderScreen() {
             </Card>
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title>付款資訊</Card.Title>
+                <Card.Title className="border-bottom mb-3">付款資訊</Card.Title>
                 <Card.Text>
-                  <strong>付款方式:</strong> {order.payment_method}
+                  <strong>付款方式： </strong>
+                  {/* <br /> */}
+
+                  <img
+                    src={order.payment_method === 'PayPal' ? Paypal : LinePay}
+                    alt="paypal"
+                    className="paypal linepay ms-1"
+                  />
                 </Card.Text>
                 {order.is_paid ? (
                   <MessageBox variant="success">
@@ -267,7 +278,7 @@ export default function OrderScreen() {
 
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title>購買明細</Card.Title>
+                <Card.Title className="border-bottom">購買明細</Card.Title>
                 <ListGroup variant="flush">
                   {order?.orderItems?.map((item) => (
                     <ListGroup.Item key={item._id}>
@@ -278,7 +289,7 @@ export default function OrderScreen() {
                             alt={item.name}
                             className="img-fluid rounded img-thumbnail"
                           />{' '}
-                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                          <Link to={`/product/${item._id}`}>{item.name}</Link>
                         </Col>
                         <Col md={3}>
                           <span>{item.quantity}</span>
@@ -294,7 +305,7 @@ export default function OrderScreen() {
           <Col md={4}>
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title>訂單明細</Card.Title>
+                <Card.Title className="border-bottom">訂單明細</Card.Title>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
@@ -342,6 +353,6 @@ export default function OrderScreen() {
           </Col>
         </Row>
       </PayPalScriptProvider>
-    </div>
+    </Container>
   );
 }
